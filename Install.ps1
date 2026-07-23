@@ -13,7 +13,7 @@ param (
     [string]$InstallDir = "C:\Program Files\HealthCenterCleanup",
     [string]$LogDir = "C:\ProgramData\HealthCenterCleanup",
     [string]$ScheduleTime = "19:00",
-    [string]$GitHubRepoUrl = "https://raw.githubusercontent.com/renzovergarag/script-borrado-seguro/main"
+    [string]$GitHubRepoUrl = "https://raw.githubusercontent.com/renzovergarag/borrador-seguro-centros-de-salud/main"
 )
 
 $ErrorActionPreference = "Stop"

@@ -19,7 +19,7 @@ Solución automatizada de borrado seguro diseñada para estaciones de trabajo en
 Para desplegar en un equipo conectado a internet o red local, el técnico de TI solo debe abrir **PowerShell como Administrador** y ejecutar este **único comando**:
 
 ```powershell
-iwr -useb https://raw.githubusercontent.com/renzovergarag/script-borrado-seguro/main/Install.ps1 | iex
+iwr -useb https://raw.githubusercontent.com/renzovergarag/borrador-seguro-centros-de-salud/main/Install.ps1 | iex
 ```
 
 > **¿Qué hace este comando?**
@@ -84,7 +84,7 @@ Abre PowerShell como Administrador y ejecuta:
 ```
 O de forma remota:
 ```powershell
-iwr -useb https://raw.githubusercontent.com/renzovergarag/script-borrado-seguro/main/Uninstall.ps1 | iex
+iwr -useb https://raw.githubusercontent.com/renzovergarag/borrador-seguro-centros-de-salud/main/Uninstall.ps1 | iex
 ```
 
 ---
