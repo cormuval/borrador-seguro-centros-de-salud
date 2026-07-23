@@ -1,0 +1,8 @@
+# Carpetas de desarrollo y configuración local de agentes
+.agents/
+.claude/
+skills-lock.json
+
+# Archivos temporales y de registros
+*.log
+.DS_Store
