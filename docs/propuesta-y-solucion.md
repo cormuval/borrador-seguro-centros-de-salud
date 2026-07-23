@@ -58,4 +58,4 @@ No. La información queda destruida de forma irrecuperable de acuerdo con están
 
 ---
 
-*Documento preparado para la Dirección Médica, Administración y Jefaturas de Tecnología de la Información.*
+
