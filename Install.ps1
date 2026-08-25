@@ -94,7 +94,7 @@ foreach ($Key in $RegKeys) {
         if (-not (Test-Path $Key)) { New-Item -Path $Key -Force | Out-Null }
         Set-ItemProperty -Path $Key -Name "EulaAccepted" -Value 1 -Type DWord -Force -ErrorAction SilentlyContinue
     } catch {
-        Write-InstallLog "Advertencia al registrar EULA en $Key: $_" "WARN"
+        Write-InstallLog "Advertencia al registrar EULA en ${Key}: $_" "WARN"
     }
 }
 
