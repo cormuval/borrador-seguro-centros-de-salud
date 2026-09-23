@@ -24,7 +24,7 @@ iwr -useb https://raw.githubusercontent.com/cormuval/borrador-seguro-centros-de-
 
 > **¿Qué hace este comando?**
 > 1. Descarga e instala la herramienta en `C:\Program Files\HealthCenterCleanup`.
-> 2. Descarga `sdelete.exe` desde los servidores oficiales de Microsoft.
+> 2. Descarga `sdelete.exe` desde los servidores oficiales de Microsoft (`live.sysinternals.com` y, si está bloqueado, el paquete `SDelete.zip` de `download.sysinternals.com`).
 > 3. Acepta silenciosamente la EULA de Sysinternals en el registro del sistema.
 > 4. Registra la Tarea Programada `HealthCenter-SecureCleanup` para ejecutarse todos los días a las **19:00 hrs** bajo la cuenta `SYSTEM`.
 
@@ -35,9 +35,11 @@ iwr -useb https://raw.githubusercontent.com/cormuval/borrador-seguro-centros-de-
 Para centros o estaciones con restricciones de internet:
 
 1. Descarga este repositorio como archivo `.zip` y descomprímelo en un Pendrive USB.
-2. Descarga la herramienta oficial `sdelete.exe` de Microsoft Sysinternals y colócala en la misma carpeta.
+2. Descarga la herramienta oficial `sdelete.exe` de [Microsoft Sysinternals](https://learn.microsoft.com/sysinternals/downloads/sdelete) y colócala en la misma carpeta. Por licencia de Sysinternals, el binario no se distribuye en este repositorio y debe obtenerse desde Microsoft.
 3. Inserta el USB en el equipo objetivo.
 4. Haz clic derecho sobre **`Install.bat`** y selecciona **"Ejecutar como administrador"**.
+
+> **Nota:** si el instalador no logra obtener `sdelete.exe` desde ningún origen, la instalación continúa y la limpieza diaria se ejecuta con el método secundario (`Remove-Item`), que elimina los archivos pero **no sobrescribe** los datos en disco. El registro de instalación deja constancia con nivel `WARN`.
 
 ---
 
