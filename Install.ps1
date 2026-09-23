@@ -19,6 +19,18 @@ param (
 $ErrorActionPreference = "Stop"
 
 # ----------------------------------------------------------------------
+# Verificacion de privilegios
+# La directiva '#Requires -RunAsAdministrator' solo se evalua cuando el script se
+# ejecuta como archivo .ps1; con 'iwr | iex' se ignora, por lo que se valida aqui.
+# ----------------------------------------------------------------------
+$CurrentPrincipal = New-Object Security.Principal.WindowsPrincipal(
+    [Security.Principal.WindowsIdentity]::GetCurrent()
+)
+if (-not $CurrentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    throw "Este instalador requiere PowerShell ejecutado como Administrador. Cierre esta ventana y abra PowerShell con 'Ejecutar como administrador'."
+}
+
+# ----------------------------------------------------------------------
 # Configuración e Inicialización de Logs
 # ----------------------------------------------------------------------
 if (-not (Test-Path -Path $LogDir)) {
@@ -52,11 +64,22 @@ if (-not (Test-Path -Path $InstallDir)) {
 $SDeleteDest = Join-Path $InstallDir "sdelete.exe"
 $ScriptDest = Join-Path $InstallDir "Clean-HealthCenterPC.ps1"
 
-# Intentar copiar desde directorio local si existe (para instalacion offline por USB)
-$LocalScript = Join-Path $PSScriptRoot "Clean-HealthCenterPC.ps1"
-$LocalSDelete = Join-Path $PSScriptRoot "sdelete.exe"
+# Intentar copiar desde directorio local si existe (para instalacion offline por USB).
+# $PSScriptRoot esta vacio cuando el script se ejecuta via 'iwr | iex' (no hay archivo
+# de origen), por lo que se resuelve con fallback y se omite el modo local si no aplica.
+$ScriptRoot = $PSScriptRoot
+if (-not $ScriptRoot -and $PSCommandPath) { $ScriptRoot = Split-Path -Parent $PSCommandPath }
 
-if (Test-Path $LocalScript) {
+$LocalScript = $null
+$LocalSDelete = $null
+if ($ScriptRoot) {
+    $LocalScript = Join-Path $ScriptRoot "Clean-HealthCenterPC.ps1"
+    $LocalSDelete = Join-Path $ScriptRoot "sdelete.exe"
+} else {
+    Write-InstallLog "Ejecucion remota detectada (sin directorio local). Se descargaran los archivos desde GitHub."
+}
+
+if ($LocalScript -and (Test-Path $LocalScript)) {
     Write-InstallLog "Copiando Clean-HealthCenterPC.ps1 desde origen local..."
     Copy-Item -Path $LocalScript -Destination $ScriptDest -Force
 } else {
@@ -65,7 +88,7 @@ if (Test-Path $LocalScript) {
     Invoke-WebRequest -Uri $ScriptUrl -OutFile $ScriptDest -UseBasicParsing
 }
 
-if (Test-Path $LocalSDelete) {
+if ($LocalSDelete -and (Test-Path $LocalSDelete)) {
     Write-InstallLog "Copiando sdelete.exe desde origen local..."
     Copy-Item -Path $LocalSDelete -Destination $SDeleteDest -Force
 } else {

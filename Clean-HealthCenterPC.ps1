@@ -45,8 +45,11 @@ Write-Log "Iniciando proceso de borrado seguro diario en Centro de Salud..."
 # Ubicación de SDelete
 $SDeletePath = Join-Path $InstallDir "sdelete.exe"
 if (-not (Test-Path -Path $SDeletePath)) {
-    # Fallback al directorio actual del script
-    $SDeletePath = Join-Path $PSScriptRoot "sdelete.exe"
+    # Fallback al directorio actual del script.
+    # $PSScriptRoot queda vacio si el script no se ejecuta como archivo .ps1.
+    $ScriptRoot = $PSScriptRoot
+    if (-not $ScriptRoot -and $PSCommandPath) { $ScriptRoot = Split-Path -Parent $PSCommandPath }
+    if ($ScriptRoot) { $SDeletePath = Join-Path $ScriptRoot "sdelete.exe" }
 }
 
 $UseSDelete = $true
