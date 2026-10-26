@@ -26,7 +26,7 @@ iwr -useb https://raw.githubusercontent.com/cormuval/borrador-seguro-centros-de-
 > 1. Descarga e instala la herramienta en `C:\Program Files\HealthCenterCleanup`.
 > 2. Descarga `sdelete.exe` desde los servidores oficiales de Microsoft (`live.sysinternals.com` y, si está bloqueado, el paquete `SDelete.zip` de `download.sysinternals.com`).
 > 3. Acepta silenciosamente la EULA de Sysinternals en el registro del sistema.
-> 4. Registra la Tarea Programada `HealthCenter-SecureCleanup` para ejecutarse todos los días a las **19:00 hrs** bajo la cuenta `SYSTEM`.
+> 4. Registra la Tarea Programada `HealthCenter-SecureCleanup` para ejecutarse todos los días a las **21:00 hrs** bajo la cuenta `SYSTEM`.
 
 ---
 
